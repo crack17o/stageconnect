@@ -1,0 +1,25 @@
+{% extends 'base_super.html.twig' %}
+
+{% block body %}
+    <h2 class="mb-4">Modifier le responsable</h2>
+    <div class="card p-4 shadow-sm">
+        {{ form_start(form) }}
+            <div class="mb-3">
+                {{ form_label(form.email) }}
+                {{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
+                {{ form_errors(form.email) }}
+            </div>
+            <div class="mb-3">
+                {{ form_label(form.password) }}
+                {{ form_widget(form.password, {'attr': {'class': 'form-control'}}) }}
+                {{ form_errors(form.password) }}
+            </div>
+            <div class="mb-3">
+                {{ form_label(form.entreprise) }}
+                {{ form_widget(form.entreprise, {'attr': {'class': 'form-control'}}) }}
+                {{ form_errors(form.entreprise) }}
+            </div>
+            <button type="submit" class="btn btn-primary">Enregistrer</button>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

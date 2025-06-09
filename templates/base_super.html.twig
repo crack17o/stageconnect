@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Espace Superviseur{% endblock %}</title>
+        <title>{% block title %}Espace Super Admin{% endblock %}</title>
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
         {% block stylesheets %}
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
@@ -14,13 +14,11 @@
             <div class="container">
                 <a class="navbar-brand d-flex align-items-center" href="#">
                     <img src="/assets/logo.png" alt="Logo" width="40" height="40" class="me-2">
-                    <span class="fw-bold fs-4">stageconnect</span>
+                    <span class="fw-bold fs-4">stageConnect</span>
                 </a>
                 <div class="ms-auto">
-                    <a class="btn btn-outline-secondary me-2" href="{{ path('app_superviseur_accueil') }}">Accueil</a>
-                    <a class="btn btn-outline-secondary me-2" href="{{ path('app_superviseur_etudiants') }}">Etudiants</a>
-                    <a class="btn btn-outline-secondary me-2" href="{{ path('app_superviseur_offres') }}">Offres</a>
-                    <a class="btn btn-outline-secondary me-2" href="{{ path('app_superviseur_candidatures') }}">Candidatures</a>
+                    <a class="btn btn-outline-secondary me-2" href="{{ path('app_super_entreprise') }}">Entreprise</a>
+                    <a class="btn btn-outline-secondary" href="{{ path('app_super_superviseur') }}">Superviseur</a>
                     <a class="btn btn-danger" href="{{ path('app_logout') }}">Se déconnecter</a>
                 </div>
             </div>

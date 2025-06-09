@@ -1,0 +1,38 @@
+{% extends 'base_super.html.twig' %}
+
+{% block body %}
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="mb-0">Liste des responsables</h2>
+        <a href="{{ path('app_super_responsable_new') }}" class="btn btn-primary">
+            <i class="fas fa-plus"></i> Ajouter un Responsable
+        </a>
+    </div>
+    <table class="table table-striped mt-3">
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Email</th>
+                <th>Entreprise</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for responsable in responsables %}
+            <tr>
+                <td>{{ responsable.nom }}</td>
+                <td>{{ responsable.email }}</td>
+                <td>{{ responsable.entreprise.nom }}</td>
+                <td>
+                    <a href="{{ path('app_super_responsable_edit', {id: responsable.id}) }}" class="btn btn-warning btn-sm me-1">Modifier</a>
+                    <a href="{{ path('app_super_responsable_delete', {id: responsable.id}) }}" class="btn btn-danger btn-sm"
+                       onclick="return confirm('Voulez-vous vraiment supprimer ce responsable ?');">Supprimer</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4" class="text-center">Aucun responsable pour le moment.</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
