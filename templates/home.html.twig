@@ -1,0 +1,92 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}StageConnect - Plateforme de Gestion des Stages{% endblock %}
+
+{% block body %}
+<div class="container-fluid px-0">
+    <!-- Hero Section -->
+    <div class="bg-primary text-white py-5">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <h1 class="display-4 fw-bold mb-4">StageConnect</h1>
+                    <p class="lead mb-4">
+                        La plateforme qui simplifie la gestion des stages académiques pour les étudiants, 
+                        les entreprises et les autorités académiques.
+                    </p>
+                    <div class="d-flex gap-3">
+                        <a href="{{ path('app_login') }}" class="btn btn-light btn-lg">Commencer</a>
+                        <a href="{{ path('app_apropos') }}" class="btn btn-outline-light btn-lg">En savoir plus</a>
+                    </div>
+                </div>
+                <div class="col-lg-6 d-none d-lg-block">
+                    <img src="/assets/img/etudiante.jpg" alt="StageConnect Illustration" class="img-fluid rounded shadow">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Features Section -->
+    <div class="container py-5">
+        <h2 class="text-center mb-5">Nos Services</h2>
+        <div class="row g-4">
+            <!-- Étudiants -->
+            <div class="col-md-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body text-center">
+                        <i class="fas fa-user-graduate fa-3x text-primary mb-3"></i>
+                        <h3 class="h4 mb-3">Pour les Étudiants</h3>
+                        <ul class="list-unstyled text-start">
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Recherche simplifiée de stages</li>
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Suivi des candidatures</li>
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Gestion des documents</li>
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Communication avec les entreprises</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Entreprises -->
+            <div class="col-md-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body text-center">
+                        <i class="fas fa-building fa-3x text-primary mb-3"></i>
+                        <h3 class="h4 mb-3">Pour les Entreprises</h3>
+                        <ul class="list-unstyled text-start">
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Publication d'offres de stages</li>
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Gestion des candidatures</li>
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Suivi des stagiaires</li>
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Évaluation des stages</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Autorités Académiques -->
+            <div class="col-md-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body text-center">
+                        <i class="fas fa-university fa-3x text-primary mb-3"></i>
+                        <h3 class="h4 mb-3">Pour les Autorités Académiques</h3>
+                        <ul class="list-unstyled text-start">
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Suivi des stages</li>
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Validation des conventions</li>
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Statistiques et rapports</li>
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Gestion des documents officiels</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Call to Action -->
+    <div class="bg-light py-5">
+        <div class="container text-center">
+            <h2 class="mb-4">Prêt à commencer ?</h2>
+            <p class="lead mb-4">Rejoignez StageConnect dès aujourd'hui et simplifiez la gestion de vos stages académiques.</p>
+            <a href="{{ path('app_login') }}" class="btn btn-primary btn-lg">Se connecter</a>
+        </div>
+    </div>
+</div>
+{% endblock %} 
