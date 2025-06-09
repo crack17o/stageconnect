@@ -1,3 +1,4 @@
+<?php
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -32,5 +33,5 @@ abstract class User implements UserInterface
     public function setRoles(array $roles): static { $this->roles = $roles; return $this; }
     public function getPassword(): string { return $this->password; }
     public function setPassword(string $password): static { $this->password = $password; return $this; }
-    public function eraseCredentials() {}
+    public function eraseCredentials(): void {}
 }

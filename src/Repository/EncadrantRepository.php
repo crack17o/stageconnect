@@ -3,7 +3,7 @@
 
 namespace App\Repository;
 
-use App\Entity\Encadrant;
+use App\Entity\Superviseur;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -11,10 +11,10 @@ class EncadrantRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Encadrant::class);
+        parent::__construct($registry, Superviseur::class);
     }
 
-    public function findByEmail(string $email): ?Encadrant
+    public function findByEmail(string $email): ?Superviseur
     {
         return $this->createQueryBuilder('e')
             ->andWhere('e.email = :email')

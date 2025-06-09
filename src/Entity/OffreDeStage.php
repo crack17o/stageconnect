@@ -1,3 +1,4 @@
+<?php
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -32,4 +33,14 @@ class OffreDeStage
     public function setTitre(string $titre): static { $this->titre = $titre; return $this; }
     public function getEntreprise(): ?Entreprise { return $this->entreprise; }
     public function setEntreprise(?Entreprise $entreprise): static { $this->entreprise = $entreprise; return $this; }
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): self
+    {
+        $this->description = $description;
+        return $this;
+    }
 }

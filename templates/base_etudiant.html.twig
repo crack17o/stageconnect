@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <title>{% block title %}Espace Étudiant{% endblock %}</title>
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
         {% block stylesheets %}
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
@@ -17,8 +17,9 @@
                     <span class="fw-bold fs-4">stageconnect</span>
                 </a>
                 <div class="ms-auto">
-                    <a class="btn btn-outline-secondary me-2" href="{{ path('app_apropos') }}">À propos</a>
-                    <a class="btn btn-primary" href="{{ path('app_login') }}">Se connecter</a>
+                    <a class="btn btn-outline-secondary me-2" href="{{ path('app_etudiant_accueil') }}">Accueil</a>
+                    <a class="btn btn-outline-secondary me-2" href="{{ path('app_etudiant_offres') }}">Offres</a>
+                    <a class="btn btn-danger" href="{{ path('app_logout') }}">Se déconnecter</a>
                 </div>
             </div>
         </nav>

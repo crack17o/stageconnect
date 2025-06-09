@@ -1,0 +1,33 @@
+{% extends 'base_etudiant.html.twig' %}
+
+{% block body %}
+    <h2 class="mb-4">Toutes les offres de stage</h2>
+    <table class="table table-striped mt-3">
+        <thead>
+            <tr>
+                <th>Titre</th>
+                <th>Description</th>
+                <th>Entreprise</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for offre in offres %}
+            <tr>
+                <td>{{ offre.titre }}</td>
+                <td>{{ offre.description }}</td>
+                <td>{{ offre.entreprise.nom }}</td>
+                <td>
+                    <a href="{{ path('app_etudiant_postuler', {id: offre.id}) }}" class="btn btn-primary btn-sm">
+                        Postuler
+                    </a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4" class="text-center">Aucune offre disponible pour le moment.</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

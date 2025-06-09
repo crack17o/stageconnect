@@ -1,0 +1,80 @@
+{% extends 'base_entreprise.html.twig' %}
+
+{% block body %}
+    <h2 class="mb-4">Candidatures reçues</h2>
+
+    <div class="row mb-4">
+        <div class="col-md-4">
+            <div class="card text-center border-primary">
+                <div class="card-body">
+                    <h5 class="card-title">Total postulants</h5>
+                    <p class="display-6">{{ candidatures|length }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-center border-success">
+                <div class="card-body">
+                    <h5 class="card-title">Acceptées</h5>
+                    <p class="display-6">
+                        {{ candidatures|filter(c => c.statut == 'acceptée')|length }}
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-center border-danger">
+                <div class="card-body">
+                    <h5 class="card-title">Refusées</h5>
+                    <p class="display-6">
+                        {{ candidatures|filter(c => c.statut == 'refusée')|length }}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <table class="table table-striped mt-3">
+        <thead>
+            <tr>
+                <th>Étudiant</th>
+                <th>Offre</th>
+                <th>Description</th>
+                <th>Date</th>
+                <th>Statut</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for candidature in candidatures %}
+            <tr>
+                <td>{{ candidature.etudiant.nom }}</td>
+                <td>{{ candidature.offre.titre }}</td>
+                <td>{{ candidature.description }}</td>
+                <td>{{ candidature.date|date('d/m/Y') }}</td>
+                <td>
+                    {% if candidature.statut == 'en attente' %}
+                        <span class="badge bg-warning text-dark">En attente</span>
+                    {% elseif candidature.statut == 'acceptée' %}
+                        <span class="badge bg-success">Acceptée</span>
+                    {% elseif candidature.statut == 'refusée' %}
+                        <span class="badge bg-danger">Refusée</span>
+                    {% else %}
+                        {{ candidature.statut }}
+                    {% endif %}
+                </td>
+                <td>
+                    {% if candidature.statut == 'en attente' %}
+                        <a href="{{ path('app_entreprise_valider_candidature', {id: candidature.id}) }}" class="btn btn-success btn-sm me-1">Valider</a>
+                        <a href="{{ path('app_entreprise_refuser_candidature', {id: candidature.id}) }}" class="btn btn-danger btn-sm">Refuser</a>
+                    {% endif %}
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6" class="text-center">Aucune candidature reçue pour le moment.</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
