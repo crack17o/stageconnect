@@ -14,6 +14,7 @@ class Etudiant extends User
     private ?string $nom = null;
 
     #[ORM\ManyToOne(inversedBy: 'etudiants')]
+    #[ORM\JoinColumn(onDelete: "CASCADE")]
     private ?Superviseur $superviseur = null;
 
     #[ORM\OneToMany(mappedBy: 'etudiant', targetEntity: Candidature::class)]
