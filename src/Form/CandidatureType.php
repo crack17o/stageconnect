@@ -24,7 +24,14 @@ class CandidatureType extends AbstractType
                 'class' => OffreDeStage::class,
                 'choice_label' => 'titre',
             ])
-            ->add('description', TextareaType::class)
+            ->add('lettreMotivation', TextareaType::class, [
+                'label' => 'Lettre de motivation',
+                'attr' => [
+                    'class' => 'form-control',
+                    'rows' => 10,
+                    'placeholder' => 'Expliquez pourquoi vous êtes intéressé par ce stage et pourquoi vous seriez un bon candidat...'
+                ]
+            ])
             ->add('statut', ChoiceType::class, [
                 'choices' => [
                     'En attente' => 'en attente',

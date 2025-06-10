@@ -10,25 +10,11 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
-use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
-final class MainController extends AbstractController
+#[Route('/utilisateur')]
+class UtilisateurController extends AbstractController
 {
-    #[Route('/', name: 'app_stage_connect')]
-    public function index(): Response
-    {
-        return $this->render('home.html.twig');
-    }
-
-    #[Route('/apropos', name: 'app_apropos')]
-    public function apropos(): Response
-    {
-        return $this->render('apropos.html.twig');
-    }
-
-
-
-    #[Route('/register', name: 'app_register')]
+    #[Route('/register', name: 'app_utilisateur_register')]
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
     {
         $user = new Utilisateur();
@@ -36,7 +22,13 @@ final class MainController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // Encode le mot de passe
+            // Récupérer le rôle sélectionné
+            $selectedRole = $form->get('roles')->getData();
+            
+            // Convertir le rôle en tableau
+            $user->setRoles([$selectedRole]);
+
+            // Encoder le mot de passe
             $user->setPassword(
                 $userPasswordHasher->hashPassword(
                     $user,
@@ -44,20 +36,30 @@ final class MainController extends AbstractController
                 )
             );
 
-            // Récupérer le rôle sélectionné et le définir comme tableau
-            $selectedRole = $form->get('roles')->getData();
-            $user->setRoles([$selectedRole]);
-
             $entityManager->persist($user);
             $entityManager->flush();
 
-            $this->addFlash('success', 'Votre compte a été créé avec succès ! Vous pouvez maintenant vous connecter.');
+            $this->addFlash('success', 'Votre compte a été créé avec succès !');
 
             return $this->redirectToRoute('app_login');
         }
 
-        return $this->render('security/register.html.twig', [
+        return $this->render('utilisateur/register.html.twig', [
             'registrationForm' => $form->createView(),
         ]);
     }
-}
+
+    #[Route('/profile', name: 'app_utilisateur_profile')]
+    public function profile(): Response
+    {
+        $user = $this->getUser();
+        
+        if (!$user) {
+            return $this->redirectToRoute('app_login');
+        }
+
+        return $this->render('utilisateur/profile.html.twig', [
+            'user' => $user
+        ]);
+    }
+} 

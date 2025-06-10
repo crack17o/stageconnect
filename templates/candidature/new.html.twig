@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouvelle candidature{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="h4 mb-0">Postuler à l'offre : {{ offre.titre }}</h2>
+                    </div>
+                    <div class="card-body">
+                        {{ form_start(form) }}
+                            <div class="mb-3">
+                                {{ form_label(form.lettreMotivation) }}
+                                {{ form_widget(form.lettreMotivation) }}
+                                {{ form_errors(form.lettreMotivation) }}
+                            </div>
+
+                            <div class="d-flex justify-content-between">
+                                <a href="{{ path('app_offre_show', {'id': offre.id}) }}" class="btn btn-secondary">Retour</a>
+                                <button type="submit" class="btn btn-primary">Soumettre ma candidature</button>
+                            </div>
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %} 

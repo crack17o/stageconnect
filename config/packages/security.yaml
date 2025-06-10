@@ -4,26 +4,43 @@ security:
         Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: 'auto'
     # https://symfony.com/doc/current/security.html#loading-the-user-the-user-provider
     providers:
-        users_in_memory: { memory: null }
+        app_user_provider:
+            entity:
+                class: App\Entity\Utilisateur
+                property: email
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
             lazy: true
-            provider: users_in_memory
-
-            # activate different ways to authenticate
-            # https://symfony.com/doc/current/security.html#the-firewall
-
-            # https://symfony.com/doc/current/security/impersonating_user.html
-            # switch_user: true
+            provider: app_user_provider
+            form_login:
+                login_path: app_login
+                check_path: app_login_check
+                enable_csrf: true
+                username_parameter: _username
+                password_parameter: _password
+                default_target_path: app_stage_connect
+            logout:
+                path: app_logout
+                target: app_stage_connect
+            remember_me:
+                secret: '%kernel.secret%'
+                lifetime: 604800 # 1 semaine en secondes
+                path: /
 
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        # - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
+        - { path: ^/admin, roles: ROLE_ADMIN }
+        - { path: ^/entreprise, roles: ROLE_ENTREPRISE }
+        - { path: ^/etudiant, roles: ROLE_ETUDIANT }
+        - { path: ^/superviseur, roles: ROLE_SUPERVISEUR }
+        - { path: ^/profile, roles: ROLE_USER }
+        - { path: ^/login, roles: PUBLIC_ACCESS }
+        - { path: ^/register, roles: PUBLIC_ACCESS }
+        - { path: ^/, roles: PUBLIC_ACCESS }
 
 when@test:
     security:
