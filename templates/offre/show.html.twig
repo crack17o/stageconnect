@@ -55,7 +55,7 @@
                     <div class="card-body">
                         <h5 class="card-title">Actions</h5>
                         {% if is_granted('ROLE_ETUDIANT') %}
-                            <a href="{{ path('app_candidature_new', {'offre': offre.id}) }}" class="btn btn-primary w-100 mb-2">
+                            <a href="{{ path('app_candidature_new', {'id': offre.id}) }}" class="btn btn-primary w-100 mb-2">
                                 <i class="fas fa-paper-plane"></i> Postuler
                             </a>
                         {% endif %}
