@@ -36,7 +36,14 @@ class OffreController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             // Associer l'offre à l'entreprise connectée
-            $offre->setEntreprise($this->getUser()->getEntreprise());
+            $user = $this->getUser();
+
+            if ($user instanceof \App\Entity\ResponsableEntreprise && $user->getEntreprise() !== null) {
+                $offre->setEntreprise($user->getEntreprise());
+            } else {
+                throw $this->createAccessDeniedException('Utilisateur non valide pour créer une offre.');
+            }
+
             
             $entityManager->persist($offre);
             $entityManager->flush();
@@ -65,7 +72,9 @@ class OffreController extends AbstractController
     public function edit(Request $request, OffreDeStage $offre, EntityManagerInterface $entityManager): Response
     {
         // Vérifier si l'utilisateur est l'entreprise propriétaire de l'offre
-        if ($offre->getEntreprise() !== $this->getUser()->getEntreprise()) {
+        $user = $this->getUser();
+
+        if (!$user instanceof \App\Entity\ResponsableEntreprise || $offre->getEntreprise() !== $user->getEntreprise()) {
             throw $this->createAccessDeniedException('Vous n\'êtes pas autorisé à modifier cette offre.');
         }
 
@@ -90,8 +99,9 @@ class OffreController extends AbstractController
     #[IsGranted('ROLE_ENTREPRISE')]
     public function delete(Request $request, OffreDeStage $offre, EntityManagerInterface $entityManager): Response
     {
-        // Vérifier si l'utilisateur est l'entreprise propriétaire de l'offre
-        if ($offre->getEntreprise() !== $this->getUser()->getEntreprise()) {
+        $user = $this->getUser();
+
+        if (!$user instanceof \App\Entity\ResponsableEntreprise || $offre->getEntreprise() !== $user->getEntreprise()) {
             throw $this->createAccessDeniedException('Vous n\'êtes pas autorisé à supprimer cette offre.');
         }
 

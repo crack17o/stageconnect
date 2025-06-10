@@ -28,6 +28,13 @@ final class MainController extends AbstractController
 
 
 
+    #[Route('/logout', name: 'app_logout')]
+    public function logout(): void
+    {
+        // Symfony gère la déconnexion automatiquement
+        throw new \LogicException('Cette méthode peut rester vide - elle sera interceptée par la route de déconnexion.');
+    }
+
     #[Route('/register', name: 'app_register')]
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
     {
