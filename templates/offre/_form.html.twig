@@ -1,0 +1,60 @@
+{{ form_start(form, {'attr': {'class': 'needs-validation', 'novalidate': 'novalidate'}}) }}
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card shadow-sm mb-4">
+                <div class="card-body">
+                    <div class="mb-3">
+                        {{ form_label(form.titre, 'Titre du stage', {'label_attr': {'class': 'form-label'}}) }}
+                        {{ form_widget(form.titre, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_errors(form.titre) }}
+                    </div>
+
+                    <div class="mb-3">
+                        {{ form_label(form.description, 'Description détaillée', {'label_attr': {'class': 'form-label'}}) }}
+                        {{ form_widget(form.description, {'attr': {'class': 'form-control', 'rows': 10}}) }}
+                        {{ form_errors(form.description) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card shadow-sm mb-4">
+                <div class="card-body">
+                    <div class="mb-3">
+                        {{ form_label(form.duree, 'Durée (en mois)', {'label_attr': {'class': 'form-label'}}) }}
+                        {{ form_widget(form.duree, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_errors(form.duree) }}
+                    </div>
+
+                    <div class="mb-3">
+                        {{ form_label(form.gratification, 'Gratification (€/mois)', {'label_attr': {'class': 'form-label'}}) }}
+                        {{ form_widget(form.gratification, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_errors(form.gratification) }}
+                    </div>
+
+                    <div class="mb-3">
+                        {{ form_label(form.dateDebut, 'Date de début', {'label_attr': {'class': 'form-label'}}) }}
+                        {{ form_widget(form.dateDebut, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_errors(form.dateDebut) }}
+                    </div>
+
+                    <div class="mb-3">
+                        {{ form_label(form.competences, 'Compétences requises', {'label_attr': {'class': 'form-label'}}) }}
+                        {{ form_widget(form.competences, {'attr': {'class': 'form-select'}}) }}
+                        {{ form_errors(form.competences) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="d-flex justify-content-end gap-2">
+        <a href="{{ path('app_offre_index') }}" class="btn btn-secondary">
+            <i class="fas fa-arrow-left"></i> Retour à la liste
+        </a>
+        <button class="btn btn-primary">
+            <i class="fas fa-save"></i> {{ button_label|default('Enregistrer') }}
+        </button>
+    </div>
+{{ form_end(form) }} 

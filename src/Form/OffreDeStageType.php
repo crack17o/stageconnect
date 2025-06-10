@@ -2,8 +2,6 @@
 namespace App\Form;
 
 use App\Entity\OffreDeStage;
-use App\Entity\Entreprise;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -15,11 +13,20 @@ class OffreDeStageType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('titre', TextType::class)
-            ->add('description', TextareaType::class)
-            ->add('entreprise', EntityType::class, [
-                'class' => Entreprise::class,
-                'choice_label' => 'nom',
+            ->add('titre', TextType::class, [
+                'label' => 'Titre du stage',
+                'attr' => [
+                    'placeholder' => 'Ex: Stagiaire en Développement Web',
+                    'class' => 'form-control'
+                ]
+            ])
+            ->add('description', TextareaType::class, [
+                'label' => 'Description du stage',
+                'attr' => [
+                    'placeholder' => 'Décrivez les missions, responsabilités et compétences requises...',
+                    'class' => 'form-control',
+                    'rows' => 10
+                ]
             ]);
     }
 

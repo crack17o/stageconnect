@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détails de l'entreprise{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+        <div class="card">
+            <div class="card-header">
+                <h1 class="h3 mb-0">{{ entreprise.nom }}</h1>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h4>Informations générales</h4>
+                        <p><strong>Adresse :</strong> {{ entreprise.adresse }}</p>
+                        <p><strong>Ville :</strong> {{ entreprise.ville }}</p>
+                        <p><strong>Code postal :</strong> {{ entreprise.codePostal }}</p>
+                        <p><strong>Email :</strong> {{ entreprise.email }}</p>
+                        <p><strong>Téléphone :</strong> {{ entreprise.telephone }}</p>
+                    </div>
+                    <div class="col-md-6">
+                        <h4>Description</h4>
+                        <p>{{ entreprise.description }}</p>
+                    </div>
+                </div>
+
+                <div class="mt-4">
+                    <h4>Offres de stage disponibles</h4>
+                    {% if entreprise.offres is not empty %}
+                        <div class="list-group">
+                            {% for offre in entreprise.offres %}
+                                <a href="{{ path('app_offre_show', {'id': offre.id}) }}" class="list-group-item list-group-item-action">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h5 class="mb-1">{{ offre.titre }}</h5>
+                                        <small>{{ offre.dateDebut ? offre.dateDebut|date('d/m/Y') : 'Non spécifiée' }}</small>
+                                    </div>
+                                    <p class="mb-1">{{ offre.description|slice(0, 150) }}...</p>
+                                </a>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <p class="text-muted">Aucune offre de stage disponible pour le moment.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %} 

@@ -1,0 +1,96 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détails de l'offre{% endblock %}
+
+{% block body %}
+    <div class="container py-4">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="card shadow-sm mb-4">
+                    <div class="card-body">
+                        <h1 class="card-title h2 mb-3">{{ offre.titre }}</h1>
+                        
+                        <div class="d-flex align-items-center mb-4">
+                       
+                            <div>
+                                <h5 class="mb-1">{{ offre.entreprise ? offre.entreprise.nom : 'Entreprise non spécifiée' }}</h5>
+                                <p class="text-muted mb-0">
+                                    <i class="fas fa-map-marker-alt"></i> 
+                                    {{ offre.entreprise ? offre.entreprise.adresse : 'Adresse non spécifiée' }}
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <h5>Description du stage</h5>
+                            <p class="card-text">{{ offre.description|nl2br }}</p>
+                        </div>
+
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <h5>Informations clés</h5>
+                                <ul class="list-unstyled">
+                                    <li class="mb-2">
+                                        <i class="fas fa-calendar-alt text-primary me-2"></i>
+                                        Durée : {{ offre.duree }} mois
+                                    </li>
+                                    <li class="mb-2">
+                                        <i class="fas fa-money-bill-wave text-primary me-2"></i>
+                                        Gratification : {{ offre.gratification }}$/mois
+                                    </li>
+                                    <li class="mb-2">
+                                        <i class="fas fa-clock text-primary me-2"></i>
+                                        Date de début : {{ offre.dateDebut ? offre.dateDebut|date('d/m/Y') : 'Non spécifiée' }}
+                                    </li>
+                                </ul>
+                            </div>
+                           
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="card shadow-sm mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">Actions</h5>
+                        {% if is_granted('ROLE_ETUDIANT') %}
+                            <a href="{{ path('app_candidature_new', {'offre': offre.id}) }}" class="btn btn-primary w-100 mb-2">
+                                <i class="fas fa-paper-plane"></i> Postuler
+                            </a>
+                        {% endif %}
+                        
+                        {% if is_granted('ROLE_ENTREPRISE') and app.user.entreprise == offre.entreprise %}
+                            <div class="d-grid gap-2">
+                                <a href="{{ path('app_offre_edit', {'id': offre.id}) }}" class="btn btn-warning">
+                                    <i class="fas fa-edit"></i> Modifier l'offre
+                                </a>
+                                <form method="post" action="{{ path('app_offre_delete', {'id': offre.id}) }}" 
+                                      onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette offre ?');">
+                                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ offre.id) }}">
+                                    <button class="btn btn-danger w-100">
+                                        <i class="fas fa-trash"></i> Supprimer l'offre
+                                    </button>
+                                </form>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title">À propos de l'entreprise</h5>
+                        {% if offre.entreprise %}
+                            <p class="card-text">{{ offre.entreprise.description|nl2br }}</p>
+                            <a href="{{ path('app_entreprise_show', {'id': offre.entreprise.id}) }}" class="btn btn-outline-primary w-100">
+                                Voir le profil de l'entreprise
+                            </a>
+                        {% else %}
+                            <p class="text-muted">Aucune information disponible sur l'entreprise.</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %} 

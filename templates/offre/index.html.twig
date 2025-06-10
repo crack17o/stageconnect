@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Offres de stage{% endblock %}
+
+{% block body %}
+    <div class="container py-4">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1>Offres de stage</h1>
+            {% if is_granted('ROLE_ENTREPRISE') %}
+                <a href="{{ path('app_offre_new') }}" class="btn btn-primary">
+                    <i class="fas fa-plus"></i> Publier une offre
+                </a>
+            {% endif %}
+        </div>
+
+        {# Affichage des flash messages #}
+        {% for label, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="alert alert-{{ label }} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+        {% endfor %}
+
+        <div class="row">
+            {% for offre in offres %}
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ offre.titre }}</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">
+                                {{ offre.entreprise ? offre.entreprise.nom : 'Entreprise non spécifiée' }}
+                            </h6>
+                            <p class="card-text">{{ offre.description|slice(0, 150) }}...</p>
+                        </div>
+                        <div class="card-footer bg-transparent border-top-0">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <a href="{{ path('app_offre_show', {'id': offre.id}) }}" class="btn btn-outline-primary btn-sm">
+                                    Voir les détails
+                                </a>
+                                {% if is_granted('ROLE_ENTREPRISE') and app.user.entreprise == offre.entreprise %}
+                                    <div class="btn-group">
+                                        <a href="{{ path('app_offre_edit', {'id': offre.id}) }}" class="btn btn-warning btn-sm">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <form method="post" action="{{ path('app_offre_delete', {'id': offre.id}) }}" 
+                                              onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette offre ?');" 
+                                              style="display: inline-block">
+                                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ offre.id) }}">
+                                            <button class="btn btn-danger btn-sm">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <div class="col-12">
+                    <div class="alert alert-info">
+                        Aucune offre de stage disponible pour le moment.
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %} 
